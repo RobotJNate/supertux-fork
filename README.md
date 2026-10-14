@@ -95,3 +95,5 @@ In case you need help, feel free to reach out using the following means:
 * **Social Media:** Mostly on [Twitter](https://twitter.com/supertux_team) at
   the moment.
 * **Discord:** Also, you can join our [Discord server](https://discord.com/invite/AcvtHWz) to get in touch with us.
+
+Edited and forked by RobotJnate / Ocean!
