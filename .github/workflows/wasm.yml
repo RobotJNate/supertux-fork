@@ -106,12 +106,24 @@ jobs:
           path: build/upload/*
           if-no-files-found: ignore
 
-      - name: Upload to server
-        if: ${{ github.ref == 'refs/heads/master' && matrix.build_type == 'Release' }}
-        env:
-          UPLOAD_URL: ${{ secrets.UPLOAD_URL }}
-        run: |
-          cd build/upload/
-          mv supertux2.html index.html
-          zip supertux2.zip *
-          curl -F "archive=@$(pwd)/supertux2.zip" -F "message=$(git log --format=%B -n 1 | head -1)" $UPLOAD_URL
+      - name: Upload Pages Artifact
+        if: ${{ matrix.build_type == 'Release' }}
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'build/upload/'
+
+  deploy:
+    needs: wasm
+    if: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main' }}
+    permissions:
+      pages: write
+      id-token: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
+
+
+
+              
+
